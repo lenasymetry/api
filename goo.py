@@ -1,11 +1,24 @@
 import os
+import tempfile
 
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "/Users/lenapatarin/Desktop/ignore/google-vision-ocr-key.json"
+# Récupère la clé JSON complète depuis les secrets (variable d'environnement)
+json_key = os.environ.get("GOOGLE_APPLICATION_CREDENTIALS_JSON")
 
+if json_key is None:
+    raise RuntimeError("La variable d'environnement GOOGLE_APPLICATION_CREDENTIALS_JSON n'est pas définie.")
+
+# Crée un fichier temporaire pour stocker la clé (car Google SDK attend un fichier)
+with tempfile.NamedTemporaryFile(delete=False, mode='w', suffix='.json') as f:
+    f.write(json_key)
+    temp_key_path = f.name
+
+# Définit la variable d'environnement GOOGLE_APPLICATION_CREDENTIALS pour l'API Google
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = temp_key_path
+
+# Puis tu peux importer et utiliser l'API Google Vision normalement
 from google.cloud import vision
 
 client = vision.ImageAnnotatorClient()
-
 
 
 import streamlit as st
