@@ -1,3 +1,13 @@
+import os
+
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "/Users/lenapatarin/Desktop/ignore/google-vision-ocr-key.json"
+
+from google.cloud import vision
+
+client = vision.ImageAnnotatorClient()
+
+
+
 import streamlit as st
 import os
 from google.cloud import vision
@@ -6,8 +16,6 @@ import io
 import fitz  # PyMuPDF pour PDF
 import unicodedata
 
-# Clé API Google Vision
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "/Users/lenapatarin/Desktop/ignore/google-vision-ocr-key.json"
 
 EMOJI_DOC = {
     "Carte d'identité": "🪪",
