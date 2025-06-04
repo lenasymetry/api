@@ -192,3 +192,12 @@ cython_debug/
 #  refer to https://docs.cursor.com/context/ignore-files
 .cursorignore
 .cursorindexingignore
+
+# Ignore le dossier qui contient ta clé privée
+ignore/
+
+# Ignore tout fichier JSON, pour éviter de pousser une clé par erreur
+*.json
+
+# Ignore aussi le fichier .DS_Store généré par macOS
+.DS_Store
