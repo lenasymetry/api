@@ -8,18 +8,13 @@ import fitz  # PyMuPDF pour PDF
 import unicodedata
 
 # --- Gestion de la clé d'API Google en mémoire ---
+import json
 
-json_key = os.environ.get("GOOGLE_APPLICATION_CREDENTIALS_JSON")
+# Écrire temporairement le contenu du secret dans un fichier local
+with open("google-key.json", "w") as f:
+    f.write(st.secrets["gcp_service_account"])
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "google-key.json"
 
-if not json_key:
-    raise RuntimeError("La variable d'environnement GOOGLE_APPLICATION_CREDENTIALS_JSON n'est pas définie.")
-
-# Création d'un fichier temporaire contenant la clé JSON Google
-with tempfile.NamedTemporaryFile(delete=False, mode='w', suffix='.json') as f:
-    f.write(json_key)
-    temp_key_path = f.name
-
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = temp_key_path
 
 # --- Constantes ---
 
